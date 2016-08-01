@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+require 'hide'
+require 'io/console'
+
+# TODO: Add verbosity module spanning from quite to highest verbosity settings
+# TODO: Remove magic, implement settings
+class CMDReveal
+  def initialize file_name, salt = nil, iterator = nil
+    @file_name = file_name
+    file = open @file_name, 'rb'
+    data = file.read
+    file.close
+    @data = data[0..-(1 + 16 + 16)] # iv_length + auth_tag_length
+    @iv = data[@data.length..-(1 + 16)] # auth_tag_length
+    @auth_tag = data[(@data.length + @iv.length)..-1]
+
+    @salt = salt ? salt : ENV["hide_salt"] ? ENV["hide_salt"] : '00000000'
+    @iter = if iterator
+      iterator
+    else
+      ENV["hide_iterator"] ? ENV["hide_iterator"] : 30000
+    end
+  end
+
+  def prompt
+    puts "Password: "
+    while (pass = STDIN.noecho(&:gets)[0..-2]).empty?
+      puts "Err: Password can't be empty"
+      puts "Password: "
+    end
+    @password = pass
+  end
+
+  def decrypt
+    decrypted = Hide::AE.decrypt @data, @password, @salt, @iter, @iv, @auth_tag
+    file = open @file_name + '.tmp', 'wb'
+    file.write decrypted
+    file.close
+    File.delete @file_name
+    File.rename @file_name + '.tmp', @file_name
+  end
+
+  def self.exec
+    begin
+      cmd_hide = CMDReveal.new ARGV.any? ? ARGV[0] : raise(ArgumentError
+        .new('File name expected!'))
+      cmd_hide.prompt
+      cmd_hide.decrypt
+    rescue => e
+      puts e.message
+    end
+  end
+end
+
+CMDReveal.exec

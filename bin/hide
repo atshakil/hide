@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require 'hide'
+require 'io/console'
+
+# TODO: Add verbosity module spanning from quite to highest verbosity settings
+# TODO: Remove magic, implement settings
+class CMDHide
+  def initialize file_name, salt = nil, iterator = nil
+    @file_name = file_name
+    file = open @file_name, 'rb'
+    @data = file.read
+    file.close
+
+    @salt = salt ? salt : ENV["hide_salt"] ? ENV["hide_salt"] : '00000000'
+    @iter = if iterator
+      iterator
+    else
+      ENV["hide_iterator"] ? ENV["hide_iterator"] : 30000
+    end
+  end
+
+  def prompt
+    puts "Password: "
+    while (pass = STDIN.noecho(&:gets)[0..-2]).empty?
+      puts "Err: Password can't be empty"
+      puts "Password: "
+    end
+    @password = pass
+  end
+
+  def encrypt
+    encrypted = Hide::AE.encrypt @data, @password, @salt, @iter
+    file = open @file_name + '.tmp', 'wb'
+    file.write encrypted[:data] + encrypted[:iv] + encrypted[:auth_tag]
+    file.close
+    File.delete @file_name
+    File.rename @file_name + '.tmp', @file_name
+  end
+
+  def self.exec
+    begin
+      cmd_hide = CMDHide.new ARGV.any? ? ARGV[0] : raise(ArgumentError
+        .new('File name expected!'))
+      cmd_hide.prompt
+      cmd_hide.encrypt
+    rescue => e
+      puts e.message
+    end
+  end
+end
+
+CMDHide.exec
