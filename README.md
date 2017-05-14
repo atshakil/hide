@@ -1,46 +1,34 @@
 # Hide
 
+## Summary
+
 Hide is a basic utility to encrypt/decrypt light-weight data files
+with any extension.
 
-### Version
-0.1.1
+## Installation
 
-### Usage
-It is possible to encrypt data files using following syntax
-
-### Installation
-
-Hide can be installed using the following command
+Hide is a command-line utility. Installation can be performed using,
 
 ```sh
-$ gem install hide
+gem install hide
 ```
 
-#### Simple example
-
-Once Hide is installed, you can invoke encryption (`hide`) and decryption
+## Usage
+Once installed, you can invoke encryption (`hide`) and decryption
 (`reveal`) tools from anywhere.
 
 ```sh
-$ hide data_file
+hide data_file.pdf
 ```
 ```sh
-$ reveal data_file
+reveal data_file.pdf
 ```
 It's that simple.
 
-### Development
+## Contributing
 
-Want to contribute? Great!
+If you are interested in contributing, please [submit a pull request](https://help.github.com/articles/about-pull-requests/).
 
-The steps are simple.
- - Fork the project
- - Create your feature/bugfix branch
- - Make your changes
- - Create a pull request
+## License
 
-License
-----
-
-[![CC BY-SA](https://licensebuttons.net/l/by-sa/3.0/88x31.png)](
-  https://creativecommons.org/licenses/by-sa/4.0/legalcode)
+[MIT](http://opensource.org/licenses/MIT)
