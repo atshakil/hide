@@ -1,5 +1,6 @@
 require "openssl"
 require "securerandom"
+require "hide/version"
 require "hide/ae"
 
 module Hide
