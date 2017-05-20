@@ -1,7 +1,7 @@
 module Hide
   class AE
     class << self
-      def encrypt data, key, salt, iter, iv = SecureRandom.random_bytes(16),
+      def encrypt data, key, salt, iter, iv = SecureRandom.random_bytes(12),
         auth_data = String.new, key_length = 32
         cipher = OpenSSL::Cipher.new "aes-256-gcm"
         cipher.encrypt

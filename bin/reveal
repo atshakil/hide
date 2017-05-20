@@ -11,7 +11,7 @@ class CMDReveal
     file = open @file_name, "rb"
     data = file.read
     file.close
-    @data = data[0..-(1 + 16 + 16)] # iv_length + auth_tag_length
+    @data = data[0..-(1 + 12 + 16)] # iv_length + auth_tag_length
     @iv = data[@data.length..-(1 + 16)] # auth_tag_length
     @auth_tag = data[(@data.length + @iv.length)..-1]
 

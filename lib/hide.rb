@@ -6,7 +6,7 @@ require "hide/ae"
 module Hide
   module_function
 
-  def encrypt data, key, salt, iter, iv=SecureRandom.random_bytes(16),
+  def encrypt data, key, salt, iter, iv=SecureRandom.random_bytes(12),
     key_length = 32
     cipher = OpenSSL::Cipher.new "AES-256-CBC"
     cipher.encrypt
