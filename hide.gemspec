@@ -27,4 +27,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler", "~> 1.15"
   s.add_development_dependency "rake", "~> 12.0"
   s.add_development_dependency "minitest", "~> 5.0"
+  s.add_development_dependency "simplecov", "~> 0.13"
+  s.add_development_dependency "appraisal", "~> 2.2"
+
+  if ENV["TRAVIS"]
+    spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0.8"
+  end
 end

@@ -1,0 +1,29 @@
+sudo: false
+language: ruby
+rvm:
+- 2.2.7
+- 2.3.4
+- 2.4.1
+- ruby-head
+gemfile:
+- gemfiles/openssl_2.0.0.gemfile
+- gemfiles/openssl_2.0.gemfile
+matrix:
+  allow_failures:
+  - rvm: ruby-head
+  fast_finish: true
+cache: bundler
+before_install: gem install bundler
+addons:
+  code_climate:
+    repo_token: 1c1534b9452ce0fc942866617ff2949fa3ba9571838d92f0af44c5985bb0b582
+after_success:
+- bundle exec codeclimate-test-reporter
+deploy:
+  provider: rubygems
+  api_key:
+    secure: IkCcu7MJC2izq1OQk1URxgfQsQBTnu2P1GN0MgYISnYIaBjUY2AHY7WfoOgfcO5pEoPxkcgCo5S1lLKZonmJZVhjHu77QxjJqAxIPwWAmR345GPaolZnxggID7Bi/HtNHhXPhwblfXfgvBgOoTBIYEAyf0RX+LhOmxmEYtI+IBNCbOyd9U0YWOgOJnGqzLHuJwNL59QvMZxoiULRgPuSVhmZDBqcZ/HGWL6zcqB3041CPK34PjHuTMKIzMJLD/n6PV6wGzyNfHsxUoBh6TiLCp+iqTN7v44lqIkmGLzQyEWuFWM9dgev8HEluZJpqwK7YKuQfWqcPZRR2Er2/6IMQ73LtS9Kyu5yoWuz1HO6a76s4rz98my7jl63Uy7NkAXxPs1Lez9sOjt3VtbZU7sysYX78g7pfeX5zSD1qrLuNXM3nMqo0LXu5QFaxerKxmeTnD4OxjZUqRDlUxXYFIJkdHOQoFVpkWUKxJ2F8X/SvPLAWscxoff+3f7MRTLql6mVHXh8/G/nqnib9Mc7rNE5fiTJmoDuEUBcnqSypc42bbyQT8xKNA5OK13to+MniTebb0cff/X3Gh+5XMT+cGQ9cOLQRlUUAFucaXx0+Fs87HkzhJTcpNToBw+dC7cOTFXLG5ztlnrsM3CutI47BMythpyc7y6U/s+LP5i65z/wOmE=
+  gem: hide
+  on:
+    tags: true
+    repo: at-shakil/hide
