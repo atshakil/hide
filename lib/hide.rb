@@ -3,11 +3,14 @@ require "securerandom"
 require "hide/version"
 require "hide/ae"
 
+# The primary module for `hide`
+# Provides basic encryption/decryption support
 module Hide
   module_function
 
-  def encrypt data, key, salt, iter, iv=SecureRandom.random_bytes(12),
-    key_length = 32
+  def encrypt(
+    data, key, salt, iter, iv = SecureRandom.random_bytes(12), key_length = 32
+  )
     cipher = OpenSSL::Cipher.new "AES-256-CBC"
     cipher.encrypt
     cipher.key = OpenSSL::PKCS5.pbkdf2_hmac_sha1(key, salt, iter, key_length)
@@ -21,8 +24,7 @@ module Hide
   def decrypt data, key, salt, iter, iv, key_length
     decipher = OpenSSL::Cipher.new "AES-256-CBC"
     decipher.decrypt
-    decipher.key = OpenSSL::PKCS5.pbkdf2_hmac_sha1(key, salt, iter,
-      key_length)
+    decipher.key = OpenSSL::PKCS5.pbkdf2_hmac_sha1(key, salt, iter, key_length)
     decipher.iv = iv
     decipher.update(data) + decipher.final
   end

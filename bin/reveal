@@ -3,6 +3,7 @@ require "bundler/setup"
 require "hide"
 require "io/console"
 
+# Command-line interface base class for data file decryption
 # TODO: Add verbosity module spanning from quite to highest verbosity settings
 # TODO: Remove magic, implement settings
 class CMDReveal
@@ -15,12 +16,18 @@ class CMDReveal
     @iv = data[@data.length..-(1 + 16)] # auth_tag_length
     @auth_tag = data[(@data.length + @iv.length)..-1]
 
-    @salt = salt ? salt : ENV["hide_salt"] ? ENV["hide_salt"] : "00000000"
-    @iter = if iterator
-      iterator
-    else
-      ENV["hide_iterator"] ? ENV["hide_iterator"] : 30000
-    end
+    @salt =
+      if salt
+        salt
+      else
+        ENV["hide_salt"] ? ENV["hide_salt"] : "00000000"
+      end
+    @iter =
+      if iterator
+        iterator
+      else
+        ENV["hide_iterator"] ? ENV["hide_iterator"] : 30_000
+      end
   end
 
   def prompt
@@ -42,14 +49,13 @@ class CMDReveal
   end
 
   def self.exec
-    begin
-      cmd_hide = CMDReveal.new ARGV.any? ? ARGV[0] : raise(ArgumentError
-        .new("File name expected!"))
-      cmd_hide.prompt
-      cmd_hide.decrypt
-    rescue => e
-      puts e.message
-    end
+    raise(ArgumentError, "File name expected!") unless ARGV.any?
+
+    cmd_hide = CMDReveal.new ARGV[0]
+    cmd_hide.prompt
+    cmd_hide.decrypt
+  rescue => e
+    puts e.message
   end
 end
 

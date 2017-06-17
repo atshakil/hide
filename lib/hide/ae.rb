@@ -1,8 +1,11 @@
 module Hide
+  # `AE` implements authenticated encryption API based on AES-256
   class AE
     class << self
-      def encrypt data, key, salt, iter, iv = SecureRandom.random_bytes(12),
-        auth_data = String.new, key_length = 32
+      def encrypt(
+        data, key, salt, iter, iv = SecureRandom.random_bytes(12),
+        auth_data = "", key_length = 32
+      )
         cipher = OpenSSL::Cipher.new "aes-256-gcm"
         cipher.encrypt
         cipher.key =
@@ -16,17 +19,19 @@ module Hide
         }
       end
 
-      def decrypt data, key, salt, iter, iv, auth_tag, auth_data = String.new,
-        key_length = 32
+      def decrypt(
+        data, key, salt, iter, iv, auth_tag, auth_data = "", key_length = 32
+      )
         decipher = OpenSSL::Cipher.new "aes-256-gcm"
         decipher.decrypt
-        decipher.key = OpenSSL::PKCS5.pbkdf2_hmac_sha1(key, salt, iter,
-          key_length)
+        decipher.key =
+          OpenSSL::PKCS5.pbkdf2_hmac_sha1(key, salt, iter, key_length)
         decipher.iv = iv
         decipher.auth_tag = auth_tag
         decipher.auth_data = auth_data
-        decipher.update(data) + decipher.final rescue raise ArgumentError
-          .new("Authentication failed")
+        decipher.update(data) + decipher.final
+      rescue OpenSSL::Cipher::CipherError
+        raise ArgumentError, "Authentication failed"
       end
     end
   end
