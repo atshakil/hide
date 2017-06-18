@@ -19,6 +19,7 @@ module Hide
         }
       end
 
+      # TODO: investigate :reek:FeatureEnvy
       def decrypt(
         data, key, salt, iter, iv, auth_tag, auth_data = "", key_length = 32
       )
