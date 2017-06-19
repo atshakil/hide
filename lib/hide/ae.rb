@@ -2,6 +2,7 @@ module Hide
   # `AE` implements authenticated encryption API based on AES-256
   class AE
     class << self
+      # Encrypts a data stream with an authenticity tag for reliable decryption
       def encrypt(
         data, key, salt, iter, iv = SecureRandom.random_bytes(12),
         auth_data = "", key_length = 32
@@ -19,6 +20,7 @@ module Hide
         }
       end
 
+      # Decrypts an encrypted datastream with authenticity verification check
       # TODO: investigate :reek:FeatureEnvy
       def decrypt(
         data, key, salt, iter, iv, auth_tag, auth_data = "", key_length = 32

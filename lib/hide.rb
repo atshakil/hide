@@ -4,10 +4,14 @@ require "hide/version"
 require "hide/ae"
 
 # The primary module for `hide`
+#
 # Provides basic encryption/decryption support
 module Hide
   module_function
 
+  # Encrypts a data stream without any authentication identifier.
+  #
+  # For authenticated encryption support please use `Hide::AE` module
   def encrypt(
     data, key, salt, iter, iv = SecureRandom.random_bytes(12), key_length = 32
   )
@@ -21,6 +25,11 @@ module Hide
     }
   end
 
+  # Decrypts any datastream with provided decryption credential and
+  # configuration.
+  #
+  # This method does not provide support for authenticated encryption.
+  # For authenticated encryption support, please use `Hide::AE` module
   def decrypt data, key, salt, iter, iv, key_length
     decipher = OpenSSL::Cipher.new "AES-256-CBC"
     decipher.decrypt
