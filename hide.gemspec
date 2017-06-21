@@ -17,7 +17,7 @@ light-weight data files"
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.required_ruby_version = [">= 2.2.0"]
-  s.rdoc_options = %w[-t Hide -m README.md -i lib/**/*.rb -N --markup markdown]
+  s.rdoc_options = %w[-t Hide -m README.md -N --markup markdown]
   s.homepage	= "https://github.com/at-shakil/hide"
   s.license	= "MIT"
 
