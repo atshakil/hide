@@ -16,7 +16,7 @@ light-weight data files"
   s.bindir = "bin"
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.required_ruby_version = [">= 2.2.0"]
+  s.required_ruby_version = [">= 2.3.0"]
   s.rdoc_options = %w[-t Hide -m README.md -N --markup markdown]
   s.homepage	= "https://github.com/at-shakil/hide"
   s.license	= "MIT"
@@ -30,6 +30,6 @@ light-weight data files"
   s.add_development_dependency "appraisal", "~> 2.2"
 
   if ENV["TRAVIS"]
-    spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0.8"
+    s.add_development_dependency "codeclimate-test-reporter", "~> 1.0.8"
   end
 end

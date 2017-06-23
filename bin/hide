@@ -4,8 +4,6 @@ require "hide"
 require "io/console"
 
 # Command-line interface base class for data file encryption
-# TODO: Add verbosity module spanning from quite to highest verbosity settings
-# TODO: Remove magic, implement settings
 class CMDHide
   def initialize file_name, salt = nil, iterator = nil
     @file_name = file_name
