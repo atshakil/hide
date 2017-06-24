@@ -3,6 +3,8 @@ module Hide
   class AE
     class << self
       # Encrypts a data stream with an authenticity tag for reliable decryption
+      #
+      # Returns a hash containing encrypted data, IV and authentication tag
       def encrypt(
         data, key, salt, iter, iv = SecureRandom.random_bytes(12),
         auth_data = "", key_length = 32
@@ -21,7 +23,10 @@ module Hide
       end
 
       # Decrypts an encrypted datastream with authenticity verification check
-      # TODO: investigate :reek:FeatureEnvy
+      #
+      # [//]: # (TODO: investigate :reek:FeatureEnvy)
+      #
+      # Returns the decrypted data
       def decrypt(
         data, key, salt, iter, iv, auth_tag, auth_data = "", key_length = 32
       )

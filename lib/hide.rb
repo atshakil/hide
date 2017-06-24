@@ -12,6 +12,8 @@ module Hide
   # Encrypts a data stream without any authentication identifier.
   #
   # For authenticated encryption support please use `Hide::AE` module
+  #
+  # Returns a hash containing encrypted data and IV
   def encrypt(
     data, key, salt, iter, iv = SecureRandom.random_bytes(16), key_length = 32
   )
@@ -25,11 +27,13 @@ module Hide
     }
   end
 
-  # Decrypts any datastream with provided decryption credential and
-  # configuration.
+  # Decrypts any datastream with provided decryption credential
+  # and configuration.
   #
   # This method does not provide support for authenticated encryption.
   # For authenticated encryption support, please use `Hide::AE` module
+  #
+  # Returns the decrypted data
   def decrypt data, key, salt, iter, iv, key_length = 32
     decipher = OpenSSL::Cipher.new "AES-256-CBC"
     decipher.decrypt
