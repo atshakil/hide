@@ -12,10 +12,10 @@ matrix:
   - rvm: ruby-head
   fast_finish: true
 cache: bundler
-before_install: gem install bundler
+before_install: gem install bundler -v 1.17.3
 addons:
   code_climate:
-    repo_token: 1c1534b9452ce0fc942866617ff2949fa3ba9571838d92f0af44c5985bb0b582
+    repo_token: acef6e083b1721d534db1a4baf56df5be995ee0735c4e05cdb6eeff917228571
 after_success:
 - bundle exec codeclimate-test-reporter
 deploy:
@@ -25,4 +25,4 @@ deploy:
   gem: hide
   on:
     tags: true
-    repo: at-shakil/hide
+    repo: atshakil/hide

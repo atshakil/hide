@@ -1,12 +1,11 @@
 # Hide
 
-[![Build Status](https://travis-ci.org/at-shakil/hide.svg?branch=master)](https://travis-ci.org/at-shakil/hide)
+[![Build Status](https://travis-ci.org/atshakil/hide.svg?branch=master)](https://travis-ci.org/atshakil/hide)
 [![Gem Version](https://badge.fury.io/rb/hide.svg)](https://badge.fury.io/rb/hide)
-[![Dependency Status](https://gemnasium.com/badges/github.com/at-shakil/hide.svg)](https://gemnasium.com/github.com/at-shakil/hide)
-[![Test Coverage](https://codeclimate.com/github/at-shakil/hide/badges/coverage.svg)](https://codeclimate.com/github/at-shakil/hide/coverage)
-[![Inline docs](http://inch-ci.org/github/at-shakil/hide.svg?branch=master)](http://inch-ci.org/github/at-shakil/hide)
-[![Code Climate](https://codeclimate.com/github/at-shakil/hide/badges/gpa.svg)](https://codeclimate.com/github/at-shakil/hide)
-[![Issue Count](https://codeclimate.com/github/at-shakil/hide/badges/issue_count.svg)](https://codeclimate.com/github/at-shakil/hide)
+[![Test Coverage](https://codeclimate.com/github/atshakil/hide/badges/coverage.svg)](https://codeclimate.com/github/atshakil/hide/coverage)
+[![Inline docs](http://inch-ci.org/github/atshakil/hide.svg?branch=master)](http://inch-ci.org/github/atshakil/hide)
+[![Code Climate](https://codeclimate.com/github/atshakil/hide/badges/gpa.svg)](https://codeclimate.com/github/atshakil/hide)
+[![Issue Count](https://codeclimate.com/github/atshakil/hide/badges/issue_count.svg)](https://codeclimate.com/github/atshakil/hide)
 
 ## Summary
 
