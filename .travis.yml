@@ -1,4 +1,4 @@
-sudo: false
+os: linux
 language: ruby
 rvm:
 - 2.3.4
@@ -9,16 +9,16 @@ gemfile:
 - gemfiles/openssl_2.0.gemfile
 addons:
   code_climate:
-    repo_token: acef6e083b1721d534db1a4baf56df5be995ee0735c4e05cdb6eeff917228571
+    repo_token:
+      secure: acef6e083b1721d534db1a4baf56df5be995ee0735c4e05cdb6eeff917228571
 cache: bundler
-matrix:
-  allow_failures:
-  - rvm: ruby-head
-  fast_finish: true
 before_install: gem install bundler -v 2.1
 after_success:
 - bundle exec codeclimate-test-reporter
 jobs:
+  allow_failures:
+  - rvm: ruby-head
+  fast_finish: true
   include:
   - stage: gem release
     rvm: 2.4.1
