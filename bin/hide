@@ -30,6 +30,13 @@ class CMDHide
       puts "Err: Password can't be empty"
       puts "Password: "
     end
+
+    puts "Password confirmation: "
+    unless (STDIN.noecho(&:gets)[0..-2]).eql?(pass)
+      puts "Err: Password doesn't match"
+      exit
+    end
+
     @password = pass
   end
 
