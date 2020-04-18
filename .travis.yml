@@ -7,22 +7,28 @@ rvm:
 gemfile:
 - gemfiles/openssl_2.0.0.gemfile
 - gemfiles/openssl_2.0.gemfile
+addons:
+  code_climate:
+    repo_token: acef6e083b1721d534db1a4baf56df5be995ee0735c4e05cdb6eeff917228571
+cache: bundler
 matrix:
   allow_failures:
   - rvm: ruby-head
   fast_finish: true
-cache: bundler
 before_install: gem install bundler -v 2.1
-addons:
-  code_climate:
-    repo_token: acef6e083b1721d534db1a4baf56df5be995ee0735c4e05cdb6eeff917228571
 after_success:
 - bundle exec codeclimate-test-reporter
-deploy:
-  provider: rubygems
-  api_key:
-    secure: IkCcu7MJC2izq1OQk1URxgfQsQBTnu2P1GN0MgYISnYIaBjUY2AHY7WfoOgfcO5pEoPxkcgCo5S1lLKZonmJZVhjHu77QxjJqAxIPwWAmR345GPaolZnxggID7Bi/HtNHhXPhwblfXfgvBgOoTBIYEAyf0RX+LhOmxmEYtI+IBNCbOyd9U0YWOgOJnGqzLHuJwNL59QvMZxoiULRgPuSVhmZDBqcZ/HGWL6zcqB3041CPK34PjHuTMKIzMJLD/n6PV6wGzyNfHsxUoBh6TiLCp+iqTN7v44lqIkmGLzQyEWuFWM9dgev8HEluZJpqwK7YKuQfWqcPZRR2Er2/6IMQ73LtS9Kyu5yoWuz1HO6a76s4rz98my7jl63Uy7NkAXxPs1Lez9sOjt3VtbZU7sysYX78g7pfeX5zSD1qrLuNXM3nMqo0LXu5QFaxerKxmeTnD4OxjZUqRDlUxXYFIJkdHOQoFVpkWUKxJ2F8X/SvPLAWscxoff+3f7MRTLql6mVHXh8/G/nqnib9Mc7rNE5fiTJmoDuEUBcnqSypc42bbyQT8xKNA5OK13to+MniTebb0cff/X3Gh+5XMT+cGQ9cOLQRlUUAFucaXx0+Fs87HkzhJTcpNToBw+dC7cOTFXLG5ztlnrsM3CutI47BMythpyc7y6U/s+LP5i65z/wOmE=
-  gem: hide
-  on:
-    tags: true
-    repo: atshakil/hide
+jobs:
+  include:
+  - stage: gem release
+    rvm: 2.4.1
+    gemfile: gemfiles/openssl_2.0.gemfile
+    script: echo "Deploying to rubygems.org ..."
+    deploy:
+      provider: rubygems
+      api_key:
+        secure: IkCcu7MJC2izq1OQk1URxgfQsQBTnu2P1GN0MgYISnYIaBjUY2AHY7WfoOgfcO5pEoPxkcgCo5S1lLKZonmJZVhjHu77QxjJqAxIPwWAmR345GPaolZnxggID7Bi/HtNHhXPhwblfXfgvBgOoTBIYEAyf0RX+LhOmxmEYtI+IBNCbOyd9U0YWOgOJnGqzLHuJwNL59QvMZxoiULRgPuSVhmZDBqcZ/HGWL6zcqB3041CPK34PjHuTMKIzMJLD/n6PV6wGzyNfHsxUoBh6TiLCp+iqTN7v44lqIkmGLzQyEWuFWM9dgev8HEluZJpqwK7YKuQfWqcPZRR2Er2/6IMQ73LtS9Kyu5yoWuz1HO6a76s4rz98my7jl63Uy7NkAXxPs1Lez9sOjt3VtbZU7sysYX78g7pfeX5zSD1qrLuNXM3nMqo0LXu5QFaxerKxmeTnD4OxjZUqRDlUxXYFIJkdHOQoFVpkWUKxJ2F8X/SvPLAWscxoff+3f7MRTLql6mVHXh8/G/nqnib9Mc7rNE5fiTJmoDuEUBcnqSypc42bbyQT8xKNA5OK13to+MniTebb0cff/X3Gh+5XMT+cGQ9cOLQRlUUAFucaXx0+Fs87HkzhJTcpNToBw+dC7cOTFXLG5ztlnrsM3CutI47BMythpyc7y6U/s+LP5i65z/wOmE=
+      gem: hide
+      on:
+        tags: true
+        repo: atshakil/hide
