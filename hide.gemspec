@@ -24,7 +24,7 @@ light-weight data files"
   s.add_dependency "openssl", "~> 2.0"
 
   s.add_development_dependency "appraisal", "~> 2.2"
-  s.add_development_dependency "bundler", "~> 1.15"
+  s.add_development_dependency "bundler", "~> 2.1"
   s.add_development_dependency "minitest", "~> 5.0"
   s.add_development_dependency "rake", "~> 12.0"
   s.add_development_dependency "simplecov", "~> 0.13"

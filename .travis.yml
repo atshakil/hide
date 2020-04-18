@@ -12,7 +12,7 @@ matrix:
   - rvm: ruby-head
   fast_finish: true
 cache: bundler
-before_install: gem install bundler -v 1.17.3
+before_install: gem install bundler -v 2.1
 addons:
   code_climate:
     repo_token: acef6e083b1721d534db1a4baf56df5be995ee0735c4e05cdb6eeff917228571
